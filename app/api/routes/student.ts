@@ -12,11 +12,10 @@ export default (app: Router) => {
   const studentServiceInstance = Container.get(studentService);
 
   //get All
-  route.post('/all', middlewares.isAuth, middlewares.attachCurrentUser,async (req: Request, res: Response) => {
+  route.get('/all',async (req: Request, res: Response) => {
     try{
-        let location =req.body.location;
-        console.log('location', location)
-        const {students} = await studentServiceInstance.getStudents(location);
+        // let location =req.body.location;
+        const {students} = await studentServiceInstance.getStudents();
         return res.json(students).status(200);
 
     }catch(e){
@@ -25,25 +24,38 @@ export default (app: Router) => {
   });
 
   //get Single 
-  route.get('/:id',middlewares.isAuth, middlewares.attachCurrentUser, (req: Request, res: Response)=>{
+  route.get('/:id', async (req: Request, res: Response)=>{
+    try{
+        const {student} = await studentServiceInstance.getStudent(req.params.id);
+        return res.json(student).status(200);
+
+    }catch(e){
+
+    }
 
   })
 
 
-  //create Shop
+  //create Student
   route.post('/add', 
     celebrate({
         body:Joi.object({
-            title: Joi.string().required(),
-            photo: Joi.string().required(),
-            location:Joi.object()
+            name: Joi.string().required(),
+            systemId: Joi.string().required(),
+            email: Joi.string().required(),
+            password: Joi.string().required(),
+            phone: Joi.string().required(),
+            sex: Joi.string().required(),
+            photo: Joi.string(),
+            slipPhoto: Joi.string()
+
         })
     }), async(req:Request, res:Response, next: NextFunction)=>{
     // const logger = Container.get('logger');
     console.log(req.body);
         // logger.debug('req', req.body);
         try{
-            const { student, success } = await studentServiceInstance.addShop(req.body as IStudentInput);
+            const { student, success } = await studentServiceInstance.addStudent(req.body as IStudentInput);
             return res.status(201).json({student, success})
         }catch(e){
             console.log(e);
@@ -52,11 +64,39 @@ export default (app: Router) => {
     })
   
 
-    //create Shop
-  route.get('/delete/:id', middlewares.isAuth, middlewares.attachCurrentUser, async(req:Request, res:Response, next: NextFunction)=>{
-  console.log(req.body);
+
+  //update Student
+  route.put('/:id', celebrate({body:Joi.object({
+    name: Joi.string().required(),
+    systemId: Joi.string().required(),
+    email: Joi.string().required(),
+    password: Joi.string().required(),
+    phone: Joi.string().required(),
+    sex: Joi.string().required(),
+    photo: Joi.string(),
+    slipPhoto: Joi.string(),
+    verified: Joi.boolean(),
+    slipVerified: Joi.boolean()
+    })
+    }), async(req:Request, res:Response, next: NextFunction)=>{
+    // const logger = Container.get('logger');
+    console.log(req.body);
+    console.log('_id', req.params.id)
+        // logger.debug('req', req.body);
+        try{
+            
+            const { message, success } = await studentServiceInstance.updateStudent(req.params.id as any, req.body as IStudentInput);
+            return res.status(201).json({message, success})
+        }catch(e){
+            console.log(e);
+            return next(e)
+        }
+    })
+  
+    //create Student
+  route.delete('/:id', async(req:Request, res:Response, next: NextFunction)=>{
       try{
-          const {  success } = await studentServiceInstance.deleteShop(req.params.id as string);
+          const {  success } = await studentServiceInstance.deleteStudent(req.params.id as any);
           return res.status(201).json({ success});
       }catch(e){
           console.log(e);
@@ -64,33 +104,8 @@ export default (app: Router) => {
       }
   })
 
-//like Shop
-route.get('/like/:id',  middlewares.isAuth, middlewares.attachCurrentUser,async(req:Request, res:Response, next: NextFunction)=>{
-    console.log(req.body);
-        try{
-            const {  success } = await studentServiceInstance.likeShop(req.currentUser._id,req.params.id as string);
-            return res.status(201).json({ success});
-        }catch(e){
-            console.log(e);
-            return next(e)
-        }
-    })
-  
-  
-  
-    //dislike student
-    //like Shop
-route.get('/dislike/:id',  middlewares.isAuth, middlewares.attachCurrentUser,async(req:Request, res:Response, next: NextFunction)=>{
-    console.log(req.body);
-        try{
-            const {  success } = await studentServiceInstance.likeShop(req.currentUser._id,req.params.id as string);
-            return res.status(201).json({ success});
-        }catch(e){
-            console.log(e);
-            return next(e)
-        }
-    })
-  
+
+
   
     
 

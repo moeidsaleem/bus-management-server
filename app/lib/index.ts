@@ -14,6 +14,10 @@ export default async ({ expressApp }) => {
       name: 'departmentModel',
       model: require('../models/department').default,
     };
+    const studentModel = {
+      name: 'studentModel',
+      model: require('../models/student').default,
+    };
     const busModel = {
       name: 'busModel',
       model: require('../models/bus').default,
@@ -35,7 +39,8 @@ export default async ({ expressApp }) => {
       departmentModel,
       busModel,
       driverModel,
-      routeModel
+      routeModel,
+      studentModel
 
     ]
   });

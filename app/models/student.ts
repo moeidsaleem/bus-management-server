@@ -22,7 +22,7 @@ const Student = new mongoose.Schema(
         password:{
             type: String
         },
-        gendar:{
+        sex:{
             type: String, 
         },
         phone:{
@@ -35,8 +35,23 @@ const Student = new mongoose.Schema(
         },
         assignedBus:{
             type: mongoose.SchemaTypes.ObjectId,
-            ref: "Bus"
+            ref: "Bus",
+            required:false
+        },
+        verified:{
+            type: Boolean,
+            default: false
+        },
+        slipPhoto:{
+            type: String,
+            required: false
+        },
+        slipVerified: {
+            type: Boolean,
+            default: false,
+            required: false
         }
+
 }
 ,{
     timestamp: true

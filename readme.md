@@ -7,7 +7,7 @@ A University bus management platform for administrations and students to check b
 
 1. Clone the repository.
 2. Run the command `npm install`
-3. Run MongoDB on local machine with the command `mongod --directoryperdb --dbpath /Users/moeidsaleem/data/db`
+3. Run MongoDB on local machine with the command `mongod --directoryperdb --dbpath /Users/<username>/data/db`
 4. Run the project with the command `npm start`
 
 ## Development

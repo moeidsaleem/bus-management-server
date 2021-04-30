@@ -27,7 +27,7 @@ export default class StudentService {
     }
   }
 
-  public async getStudent(studentId:ObjectId): Promise<{ student: IStudent; }> {
+  public async getStudent(studentId:any): Promise<{ student: IStudent; }> {
     try {
       const studentRecord = await this.studentModel.findOne({_id: studentId});
       if (!studentRecord) {
@@ -59,16 +59,16 @@ export default class StudentService {
     }
   }
 
-  public async updateStudent(studentInputDTO: IStudentInput): Promise<{ student: IStudent; success: boolean }> {
+  public async updateStudent(studentId: ObjectId, studentInputDTO: IStudentInput): Promise<{ message:string, success: boolean }> {
     try {    
-      const studentRecord = await this.studentModel.create({...studentInputDTO})
-      if (!studentRecord) {
-        throw new Error('Student cannot be created');
+      const studentRecord = await this.studentModel.updateOne({"_id": studentId},{...studentInputDTO})
+      if(studentRecord.nModified <= 0){
+        return {message:"No Modification", success:false}
       }
-      const student = studentRecord;
+      // const student = studentRecord;
       const success = true;
-      console.log('student', student)
-      return { student, success };
+      // console.log('student', student)
+      return {message:"Student Updated", success };
     } catch (e) {
       this.logger.error(e);
       throw e;
@@ -77,8 +77,11 @@ export default class StudentService {
 
   public async deleteStudent(studentId: ObjectId): Promise<{  success: boolean; }> {
     try {    
-      const studentRecord = this.studentModel.findOneAndRemove({ "_id": studentId });
-     console.log('student----record---s', studentRecord)
+      const studentRecord = (await this.studentModel.deleteOne({ "_id": studentId }))
+      console.log('d', studentRecord)
+      if(studentRecord.deletedCount == 0){
+        return { success: false}
+      }
       return { success: true}
     } catch (e) {
       console.log('error', e)

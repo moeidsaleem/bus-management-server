@@ -7,6 +7,9 @@ export interface IStudent {
     sex: string;
     phone: any;
     photo:any;
+    verified: boolean;
+    slipPhoto: string;
+    slipVerified: boolean;
   }
   
   export interface IStudentInput {
@@ -17,6 +20,9 @@ export interface IStudent {
     sex: string;
     phone: any;
     photo:any;
+    verified: boolean;
+    slipPhoto: string;
+    slipVerified: boolean;
 
   }
   

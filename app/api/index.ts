@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import auth from './routes/auth';
-import student from './routes/user';
+import student from './routes/student';
 import department from './routes/department';
 import bus from './routes/bus';
 import driver from './routes/driver';
