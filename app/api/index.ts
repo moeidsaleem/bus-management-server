@@ -5,6 +5,7 @@ import department from './routes/department';
 import bus from './routes/bus';
 import driver from './routes/driver';
 import route from './routes/route';
+import support from './routes/support';
 // import shop from './routes/shop';
 
 
@@ -17,6 +18,7 @@ export default () => {
 	department(app);
 	route(app);
 	driver(app)
+	support(app)
 	// shop(app);
 	return app
 }

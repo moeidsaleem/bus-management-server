@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import responseTime from 'response-time'
 import routes from '../api';
 import config from '../config';
 export default ({ app }: { app: express.Application }) => {
@@ -19,6 +20,8 @@ export default ({ app }: { app: express.Application }) => {
   app.use(cors());
   app.use(require('method-override')());
   app.use(bodyParser.json());
+  
+  app.use(responseTime());
  
   // Load API routes with /api 
   app.use(config.api.prefix, routes());

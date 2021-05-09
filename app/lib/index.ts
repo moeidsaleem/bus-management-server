@@ -1,18 +1,24 @@
 import expressLoader from './express';
 import mongooseLoader from './mongoose';
+import redisLoader from './redis';
 import Logger from './logger';
 import injector from './injector'
 
 export default async ({ expressApp }) => {
 
-    const mongoConnection = await mongooseLoader()
-    const userModel = {
+  const mongoConnection = await mongooseLoader()
+  const redisConnection = await redisLoader()
+  const userModel = {
       name: 'userModel',
       model: require('../models/user').default,
     };
     const departmentModel = {
       name: 'departmentModel',
       model: require('../models/department').default,
+    };
+    const supportModel = {
+      name: 'supportModel',
+      model: require('../models/support').default,
     };
     const studentModel = {
       name: 'studentModel',
@@ -40,7 +46,8 @@ export default async ({ expressApp }) => {
       busModel,
       driverModel,
       routeModel,
-      studentModel
+      studentModel,
+      supportModel
 
     ]
   });

@@ -14,7 +14,7 @@ export default class DriverService {
 
   public async getDrivers(): Promise<{ drivers: Array<IDriver>; }> {
     try {
-      const driverRecord = await this.driverModel.find();
+      const driverRecord = await this.driverModel.find().populate(['assignedBus']);
       if (!driverRecord) {
         throw new Error('No Drivers found!');
       }

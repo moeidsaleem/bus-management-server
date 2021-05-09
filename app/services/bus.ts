@@ -8,6 +8,7 @@ export default class BusService {
   constructor(
     @Inject('userModel') private userModel: Models.UserModel,
     @Inject('busModel') private busModel: Models.BusModel,
+    @Inject('driverModel') private driverModel: Models.DriverModel,
     @Inject('logger') private logger,
   ) { }
 
@@ -50,6 +51,12 @@ export default class BusService {
         throw new Error('Bus cannot be created');
       }
       const bus = busRecord;
+      
+                  // update the driver data if assignedDriver with the busId 
+      if(bus.assignedDriver && bus._id){
+        const driverRecord = await this.driverModel.updateOne({_id: bus.assignedDriver}, {assignedBus: bus._id})
+      }
+
       const success = true;
       console.log('bus', bus)
       return { bus, success };
@@ -65,6 +72,10 @@ export default class BusService {
       if(busRecord.nModified <= 0){
         return {message:"No Modification", success:false}
       }
+         // update the driver data if assignedDriver with the busId 
+                      if(busInputDTO.assignedDriver && busId){
+                        const driverRecord = await this.driverModel.updateOne({_id: busInputDTO.assignedDriver}, {assignedBus: busId})
+                      }
       // const bus = busRecord;
       const success = true;
       // console.log('bus', bus)

@@ -23,6 +23,17 @@ A University bus management platform for administrations and students to check b
 - MongoDB / Mongoose
 - Typedi
 - mongoose-validation-error-transform
+- Redis
+
+
+## Redis - Caching
+
+We are using Redis for database caching.
+
+- Install redis on your local machine, for mac `brew install redis`
+- Run the command `brew services start redis`
+- Check if Redis is running `brew services list` or `redis-cli` and write `ping` if response come as `PONG` it mean it is working.
+
 
 ### API Docs
 
