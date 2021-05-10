@@ -23,7 +23,7 @@ const User = new mongoose.Schema(
         }
 }
 ,{
-    timestamp: true
+    timestamps: true
 })
 
 export default mongoose.model<IUser & mongoose.Document>('User', User)

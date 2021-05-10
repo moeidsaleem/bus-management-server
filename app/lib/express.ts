@@ -20,8 +20,20 @@ export default ({ app }: { app: express.Application }) => {
   app.use(cors());
   app.use(require('method-override')());
   app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended: true}))
+
+
+
   
   app.use(responseTime());
+
+  // allow cross-origin requests
+app.use((req, res, next)=> {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", 
+    "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
  
   // Load API routes with /api 
   app.use(config.api.prefix, routes());
@@ -46,6 +58,7 @@ export default ({ app }: { app: express.Application }) => {
     }
     return next(err);
   });
+  
   app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.json({

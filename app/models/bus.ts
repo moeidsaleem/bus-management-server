@@ -24,7 +24,7 @@ const Bus = new mongoose.Schema(
         }
 
 },{
-    timestamp: true
+    timestamps: true
 })
 
 export default mongoose.model<IBus & mongoose.Document>('Bus', Bus)

@@ -19,7 +19,7 @@ const Shop = new mongoose.Schema(
           }
 
 },{
-    timestamp: true
+    timestamps: true
 })
 Shop.index({ "location": "2dsphere" });
 

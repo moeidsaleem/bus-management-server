@@ -9,7 +9,7 @@ const Department = new mongoose.Schema(
             index: true
         }
 },{
-    timestamp: true
+    timestamps: true
 })
 // Department.index({ "location": "2dsphere" });
 

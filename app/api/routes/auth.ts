@@ -4,8 +4,20 @@ import AuthService from '../../services/auth';
 import { IUserInput } from '../../interfaces/IUser';
 import middlewares from '../middlewares';
 import { celebrate, Joi } from 'celebrate';
+const multer = require("multer");
+const path = require("path");
 
 const route  = Router();
+const imageToBase64 = require('image-to-base64');
+
+import ImageKit from 'imagekit'
+
+const imagekit = new ImageKit({
+    urlEndpoint: 'https://ik.imagekit.io/busmanagement/',
+    publicKey: 'public_fKo5YmIft0pv9hhR8bX+ixsX/z8=',
+    privateKey: 'private_0gtSrJfQtC+55joG9/bfigh0BtI='
+  });
+  
 
 export default (app:Router)=>{
     app.use('/auth', route)
@@ -60,5 +72,71 @@ export default (app:Router)=>{
           return next(e);
         }
       });
+
+
+
+      //FILE UPLOADER 
+
+      // SET STORAGE
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log('params', req.params);
+      cb(null, 'public/uploads')
+    },
+    filename: function (req, file, cb) {
+        // 
+        console.log('in', req.body.name);
+
+
+      cb(null, file.originalname)
+    }
+  })
+   
+  
+  var upload = multer({ storage: storage })
+
+     route.post('/upload', upload.single('myFile'), async (req, res, next) => {
+        const file = req.file
+
+        
+        if (!file) {
+            const error = new Error('Please upload a file')
+            console.log('no-file')
+            return next(error)
+          }
+
+        imageToBase64('public/uploads/image.png') // Path to the image
+    .then(
+        (response) => {
+            console.log(response); // "cGF0aC90by9maWxlLmpwZw=="
+            imagekit.upload({
+                fileName:"madad",
+                file: response
+            }).then(data=>{
+                console.log('res', data);
+                res.json({
+                    file:data.url
+                })
+            })
+         
+        }
+    )
+    .catch(
+        (error) => {
+            console.log(error); // Logs an error if there was one
+            throw new Error("Error converting file")
+        }
+    )
+
+        //   res.send( file)
+        
+      });
+
+
+
+
+
+
+
 }
 

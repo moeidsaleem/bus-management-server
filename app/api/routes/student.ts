@@ -30,9 +30,21 @@ export default (app: Router) => {
         return res.json(student).status(200);
 
     }catch(e){
-
+        throw new Error('Error')
     }
+  })
 
+ // QUERY SINGLE STUDENT
+ route.get('/', async (req: Request, res: Response)=>{
+    try{
+        const query = req.query;
+        const {student} = await studentServiceInstance.queryStudent(query);
+        return res.json(student).status(200);
+
+    }catch(e){
+        res.json([])
+        throw new Error('Error')
+    }
   })
 
 
@@ -67,12 +79,12 @@ export default (app: Router) => {
 
   //update Student
   route.put('/:id', celebrate({body:Joi.object({
-    name: Joi.string().required(),
-    systemId: Joi.string().required(),
-    email: Joi.string().required(),
-    password: Joi.string().required(),
-    phone: Joi.string().required(),
-    sex: Joi.string().required(),
+    name: Joi.string(),
+    systemId: Joi.string(),
+    email: Joi.string(),
+    password: Joi.string(),
+    phone: Joi.string(),
+    sex: Joi.string(),
     photo: Joi.string(),
     slipPhoto: Joi.string(),
     verified: Joi.boolean(),

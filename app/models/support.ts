@@ -14,7 +14,7 @@ const Support = new mongoose.Schema(
         },
         studentId:{
             type: mongoose.SchemaTypes.ObjectId,
-            ref: "User",
+            ref: "Student",
             required: false
         }
 },{

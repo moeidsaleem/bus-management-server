@@ -54,4 +54,5 @@ export default async ({ expressApp }) => {
 
     await expressLoader({ app: expressApp });
     Logger.info('Express ready to go!!');
+  
   };

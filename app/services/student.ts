@@ -41,6 +41,20 @@ export default class StudentService {
       throw e;
     }
   }
+  public async queryStudent(queryData:any): Promise<{ student: IStudent; }> {
+    try {
+      const studentRecord = await this.studentModel.findOne({...queryData});
+      if (!studentRecord) {
+        throw new Error('No Students found!');
+      }
+      this.logger.silly('Student Found');
+      const student = studentRecord;
+      return { student };
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
 
 
   public async addStudent(studentInputDTO: IStudentInput): Promise<{ student: IStudent; success: boolean }> {
@@ -61,12 +75,13 @@ export default class StudentService {
 
   public async updateStudent(studentId: ObjectId, studentInputDTO: IStudentInput): Promise<{ message:string, success: boolean }> {
     try {    
-      const studentRecord = await this.studentModel.updateOne({"_id": studentId},{...studentInputDTO})
+      const studentRecord = await this.studentModel.updateOne({"_id": studentId},{...studentInputDTO});
       if(studentRecord.nModified <= 0){
         return {message:"No Modification", success:false}
       }
       // const student = studentRecord;
       const success = true;
+      const s = await this.studentModel.findOne({"_id": studentId})
       // console.log('student', student)
       return {message:"Student Updated", success };
     } catch (e) {

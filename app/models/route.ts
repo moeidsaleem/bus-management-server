@@ -11,7 +11,7 @@ const Route = new mongoose.Schema(
         stops:[mongoose.Schema.Types.Mixed],
 
 },{
-    timestamp: true
+    timestamps: true
 })
 // Route.index({"stops": "2dsphere"})
 

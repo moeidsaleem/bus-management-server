@@ -14,7 +14,8 @@ export default class SupportService {
 
   public async getSupports(): Promise<{ supports: Array<ISupport>; }> {
     try {
-      const supportRecord = await this.supportModel.find();
+      const supportRecord = await this.supportModel.find().populate(['studentId']);
+      console.log('supportRecord');
       if (!supportRecord) {
         throw new Error('No Supports found!');
       }

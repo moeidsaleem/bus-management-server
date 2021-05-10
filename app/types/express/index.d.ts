@@ -17,6 +17,7 @@ declare global {
 
     }    
   }
+
   namespace Models {
     export type StopModel = Model<IStop & Document>;
     export type UserModel = Model<IUser & Document>;
