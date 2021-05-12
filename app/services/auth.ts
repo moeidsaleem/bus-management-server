@@ -8,8 +8,14 @@ import { IUser, IUserInput } from '../interfaces/IUser';
 @Service()
 export default class AuthService {
   constructor(
-      @Inject('userModel') private userModel : Models.UserModel,
-      @Inject('logger') private logger,
+    @Inject('userModel') private userModel : Models.UserModel,
+    @Inject('studentModel') private studentModel : Models.StudentModel,
+    @Inject('departmentModel') private departmentModel : Models.DepartmentModel,
+    @Inject('routeModel') private routeModel : Models.RouteModel,
+    @Inject('driverModel') private driverModel : Models.DriverModel,
+    @Inject('busModel') private busModel : Models.BusModel,
+    @Inject('supportModel') private supportModel : Models.SupportModel,
+    @Inject('logger') private logger,
   ) {}
   public async SignUp(userInputDTO: IUserInput): Promise<{ user: IUser; token: string }> {
     try {
@@ -71,5 +77,28 @@ export default class AuthService {
       },
       config.jwtSecret,
     );
+  }
+
+
+
+  public async getStatistics(): Promise<{ statistics: any }> {
+    const users = await this.userModel.countDocuments();
+    const students = await this.studentModel.countDocuments();
+    const drivers = await this.driverModel.countDocuments();
+    const routes = await this.routeModel.countDocuments();
+    const buses = await this.busModel.countDocuments();
+    const departments = await this.departmentModel.countDocuments();
+    const supports = await this.supportModel.countDocuments();
+
+    return {
+      statistics:{
+        users,students,drivers,routes,buses,departments,supports
+      }
+    }
+
+ 
+
+ 
+ 
   }
 }

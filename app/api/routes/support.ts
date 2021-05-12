@@ -45,8 +45,9 @@ export default (app: Router) => {
             studentId: Joi.string().required(),
         })
     }), async(req:Request, res:Response, next: NextFunction)=>{
+        console.log('ye-chala-hai-bhai')
     // const logger = Container.get('logger');
-    console.log(req.body);
+    console.log('create-support', req.body);
         // logger.debug('req', req.body);
         try{
             const { support, success } = await supportServiceInstance.addSupport(req.body as ISupportInput);

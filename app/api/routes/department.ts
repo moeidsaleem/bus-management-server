@@ -32,8 +32,8 @@ export default (app: Router) => {
     }catch(e){
 
     }
-
   })
+
 
 
   //create Department

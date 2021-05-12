@@ -4,8 +4,9 @@ import AuthService from '../../services/auth';
 import { IUserInput } from '../../interfaces/IUser';
 import middlewares from '../middlewares';
 import { celebrate, Joi } from 'celebrate';
+
 const multer = require("multer");
-const path = require("path");
+
 
 const route  = Router();
 const imageToBase64 = require('image-to-base64');
@@ -80,13 +81,13 @@ export default (app:Router)=>{
       // SET STORAGE
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log('params', req.params);
+        // console.log('params', req.params);
       cb(null, 'public/uploads')
     },
     filename: function (req, file, cb) {
         // 
         console.log('in', req.body.name);
-
+        console.log('intest', file)
 
       cb(null, file.originalname)
     }
@@ -96,19 +97,17 @@ var storage = multer.diskStorage({
   var upload = multer({ storage: storage })
 
      route.post('/upload', upload.single('myFile'), async (req, res, next) => {
-        const file = req.file
-
-        
+        const file = req.file;
         if (!file) {
             const error = new Error('Please upload a file')
             console.log('no-file')
             return next(error)
           }
 
-        imageToBase64('public/uploads/image.png') // Path to the image
+        imageToBase64('public/uploads/'+file.originalname) // Path to the image
     .then(
         (response) => {
-            console.log(response); // "cGF0aC90by9maWxlLmpwZw=="
+         //   console.log(response); // "cGF0aC90by9maWxlLmpwZw=="
             imagekit.upload({
                 fileName:"madad",
                 file: response
@@ -133,6 +132,12 @@ var storage = multer.diskStorage({
       });
 
 
+
+      route.get('/statistics',async (req,res,next)=>{
+          const {statistics} = await authServiceInstance.getStatistics();
+          res.json(statistics)
+
+      })
 
 
 

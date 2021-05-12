@@ -1,13 +1,13 @@
 import expressLoader from './express';
 import mongooseLoader from './mongoose';
-import redisLoader from './redis';
+// import redisLoader from './redis';
 import Logger from './logger';
 import injector from './injector'
 
 export default async ({ expressApp }) => {
 
   const mongoConnection = await mongooseLoader()
-  const redisConnection = await redisLoader()
+  // const redisConnection = await redisLoader()
   const userModel = {
       name: 'userModel',
       model: require('../models/user').default,

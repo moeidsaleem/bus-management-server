@@ -5,7 +5,6 @@ The project is an FYP for students which is directed for students and administra
 - Node.js
 - MongoDB
 - TypeScript
-- Vue.js
 
 ## Models
 
@@ -15,7 +14,7 @@ The project is an FYP for students which is directed for students and administra
 - admin
 - buses
 - routes
-- feedback
+- support
 
 ### Department
 
@@ -25,7 +24,7 @@ The project is an FYP for students which is directed for students and administra
 ### student
 
 - studentId
-- fullName: String
+- name: String
 - department: Department
 - systemId (rollno): String
 - email: String
@@ -40,7 +39,7 @@ The project is an FYP for students which is directed for students and administra
 ### driver
 
 - driverId
-- fullName
+- name
 - phone
 - photo
 
@@ -79,3 +78,11 @@ The project is an FYP for students which is directed for students and administra
 - slipUploadThenAdminVerified()
 - feedback()
 
+## Revision 
+
+- SupportTicketMessageStatus() - show status |active|progress|closed|
+- CreateStudentSignUp() -> Student select Route -> Route will have a bus.
+- addSelectDeparmentInStudent()  ===X===
+- addSorting()  ===X===
+- DashboardStatistics() ===X===
+- bug=> busesRouteLoading() ===X===

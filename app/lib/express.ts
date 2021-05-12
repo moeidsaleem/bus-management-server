@@ -21,11 +21,8 @@ export default ({ app }: { app: express.Application }) => {
   app.use(require('method-override')());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}))
-
-
-
-  
   app.use(responseTime());
+  
 
   // allow cross-origin requests
 app.use((req, res, next)=> {

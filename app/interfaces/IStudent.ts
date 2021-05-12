@@ -10,6 +10,7 @@ export interface IStudent {
     verified: boolean;
     slipPhoto: string;
     slipVerified: boolean;
+    department:any;
   }
   
   export interface IStudentInput {
@@ -23,6 +24,7 @@ export interface IStudent {
     verified?: boolean;
     slipPhoto?: string;
     slipVerified?: boolean;
+    department?: any;
 
   }
   

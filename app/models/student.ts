@@ -38,6 +38,11 @@ const Student = new mongoose.Schema(
             ref: "Bus",
             required:false
         },
+        department:{
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: "Department",
+            required:false
+        },
         verified:{
             type: Boolean,
             default: false

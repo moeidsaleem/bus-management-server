@@ -14,7 +14,7 @@ export default class StudentService {
 
   public async getStudents(): Promise<{ students: Array<IStudent>; }> {
     try {
-      const studentRecord = await this.studentModel.find();
+      const studentRecord = await this.studentModel.find().populate(['department'])
       if (!studentRecord) {
         throw new Error('No Students found!');
       }

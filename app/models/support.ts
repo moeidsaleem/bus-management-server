@@ -12,6 +12,11 @@ const Support = new mongoose.Schema(
             type: String, 
             required: true
         },
+        status:{
+            type: String,
+            required: false,
+            default:'active'
+        },
         studentId:{
             type: mongoose.SchemaTypes.ObjectId,
             ref: "Student",

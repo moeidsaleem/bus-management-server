@@ -37,12 +37,14 @@ export default (app: Router) => {
  // QUERY SINGLE STUDENT
  route.get('/', async (req: Request, res: Response)=>{
     try{
+        console.log('this is route is hit')
         const query = req.query;
         const {student} = await studentServiceInstance.queryStudent(query);
+        console.log('query-student', student);
         return res.json(student).status(200);
 
     }catch(e){
-        res.json([])
+        res.json({})
         throw new Error('Error')
     }
   })
@@ -59,7 +61,8 @@ export default (app: Router) => {
             phone: Joi.string().required(),
             sex: Joi.string().required(),
             photo: Joi.string(),
-            slipPhoto: Joi.string()
+            slipPhoto: Joi.string(),
+            department: Joi.string()
 
         })
     }), async(req:Request, res:Response, next: NextFunction)=>{
@@ -88,7 +91,8 @@ export default (app: Router) => {
     photo: Joi.string(),
     slipPhoto: Joi.string(),
     verified: Joi.boolean(),
-    slipVerified: Joi.boolean()
+    slipVerified: Joi.boolean(),
+    department: Joi.string()
     })
     }), async(req:Request, res:Response, next: NextFunction)=>{
     // const logger = Container.get('logger');
