@@ -37,7 +37,7 @@ export default (app: Router) => {
  // QUERY SINGLE STUDENT
  route.get('/', async (req: Request, res: Response)=>{
     try{
-        console.log('this is route is hit')
+        console.log('this is route is hit', req.query)
         const query = req.query;
         const {student} = await studentServiceInstance.queryStudent(query);
         console.log('query-student', student);
@@ -45,7 +45,7 @@ export default (app: Router) => {
 
     }catch(e){
         res.json({})
-        throw new Error('Error')
+        // throw new Error('Error')
     }
   })
 
