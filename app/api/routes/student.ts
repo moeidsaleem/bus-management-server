@@ -96,7 +96,7 @@ export default (app: Router) => {
     })
     }), async(req:Request, res:Response, next: NextFunction)=>{
     // const logger = Container.get('logger');
-    console.log(req.body);
+    console.log('update request got',req.body);
     console.log('_id', req.params.id)
         // logger.debug('req', req.body);
         try{

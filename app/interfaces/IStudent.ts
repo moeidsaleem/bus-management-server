@@ -11,6 +11,7 @@ export interface IStudent {
     slipPhoto: string;
     slipVerified: boolean;
     department:any;
+
   }
   
   export interface IStudentInput {

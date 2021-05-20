@@ -43,7 +43,10 @@ export default class StudentService {
   }
   public async queryStudent(queryData:any): Promise<{ student: IStudent; }> {
     try {
-      const studentRecord = await this.studentModel.findOne({...queryData});
+      const studentRecord = await this.studentModel.findOne({
+        systemId: queryData.systemId,
+        password: queryData.password
+      });
       if (!studentRecord) {
         throw new Error('No Students found!');
       }
@@ -75,7 +78,14 @@ export default class StudentService {
 
   public async updateStudent(studentId: ObjectId, studentInputDTO: IStudentInput): Promise<{ message:string, success: boolean }> {
     try {    
-      const studentRecord = await this.studentModel.updateOne({"_id": studentId},{...studentInputDTO});
+      const studentRecord = await this.studentModel.updateOne({"_id": studentId},{
+        name: studentInputDTO.name,
+        password: studentInputDTO.password,
+        phone: studentInputDTO.phone,
+        slipVerified: studentInputDTO.slipVerified,
+        verified: studentInputDTO.verified,
+        department: studentInputDTO.department
+      });
       if(studentRecord.nModified <= 0){
         return {message:"No Modification", success:false}
       }

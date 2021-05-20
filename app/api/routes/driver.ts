@@ -72,7 +72,6 @@ export default (app: Router) => {
     console.log('_id', req.params.id)
         // logger.debug('req', req.body);
         try{
-            
             const { message, success } = await driverServiceInstance.updateDriver(req.params.id as any, req.body as IDriverInput);
             return res.status(201).json({message, success})
         }catch(e){

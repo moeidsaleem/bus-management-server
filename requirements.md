@@ -82,6 +82,7 @@ The project is an FYP for students which is directed for students and administra
 
 - SupportTicketMessageStatus() - show status |active|progress|closed|
 - CreateStudentSignUp() -> Student select Route -> Route will have a bus.
+- studentPortalNotWorking - (fix)
 - addSelectDeparmentInStudent()  ===X===
 - addSorting()  ===X===
 - DashboardStatistics() ===X===
