@@ -12,7 +12,7 @@ export default (app: Router) => {
   const departmentServiceInstance = Container.get(busService);
 
   //get All
-  route.get('/all',middlewares.isAuth, async (req: Request, res: Response) => {
+  route.get('/all', async (req: Request, res: Response) => {
     try{
         // let location =req.body.location;
         const {buses} = await departmentServiceInstance.getBuses();
@@ -36,7 +36,7 @@ export default (app: Router) => {
 
 
   //create Bus
-  route.post('/add', middlewares.isAuth,
+  route.post('/add', 
     celebrate({
         body:Joi.object({
             name: Joi.string().required(),
